@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+    }
+    .header {
+      width: 100%;
+      height: 200px;
+      background: url('https://res.cloudinary.com/dpragculd/image/upload/v1739298186/Screenshot_2025-02-11_234928_bcw79g.png') no-repeat center center;
+      background-size: contain;
+    }
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: calc(100vh - 200px);
+      background-color: #f3f4f6;
+    }
+    .login-box {
+      width: 400px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+    .login-header {
+      height: 20%;
+      background-color: #003366;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    .login-content {
+      padding: 20px;
+    }
+    .input-group {
+      margin-bottom: 15px;
+    }
+    .input-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+    .input-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    .captcha {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .captcha-code {
+      font-weight: bold;
+      font-size: 1rem;
+      color: #003366;
+      background: #e6e6e6;
+      padding: 5px 10px;
+      border-radius: 4px;
+    }
+    .submit-btn {
+      width: 100%;
+      padding: 10px;
+      background-color: #003366;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .submit-btn:hover {
+      background-color: #00254d;
+    }
+    .image-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #000;
+    }
+    .image-container img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header"></div>
+
+  <div class="container" id="login-section">
+    <div class="login-box">
+      <div class="login-header">Login</div>
+      <div class="login-content">
+        <div class="input-group">
+          <label for="application-number">Application Number</label>
+          <input type="text" id="application-number" placeholder="Enter your application number">
+        </div>
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Enter your password">
+        </div>
+        <div class="input-group captcha">
+          <label for="captcha">Captcha:</label>
+          <span class="captcha-code" id="captcha-code"></span>
+        </div>
+        <div class="input-group">
+          <input type="text" id="captcha-input" placeholder="Enter the captcha">
+        </div>
+        <button class="submit-btn" onclick="validateDetails()">Login</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="image-container" id="image-section" style="display: none;">
+    <img src="https://res.cloudinary.com/dpragculd/image/upload/v1739295763/abcfinal_page-0001_bkabzb.jpg" alt="Loaded Image">
+  </div>
+
+  <script>
+    function generateCaptcha() {
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      let captcha = '';
+      for (let i = 0; i < 6; i++) {
+        captcha += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      document.getElementById('captcha-code').textContent = captcha;
+    }
+
+    function validateDetails() {
+      const applicationNumber = document.getElementById('application-number').value;
+      const password = document.getElementById('password').value;
+      const userCaptcha = document.getElementById('captcha-input').value;
+      const actualCaptcha = document.getElementById('captcha-code').textContent;
+
+      if (applicationNumber === "250310114114" && password === "04012005" && userCaptcha === actualCaptcha) {
+        document.getElementById('login-section').style.display = 'none';
+        document.getElementById('image-section').style.display = 'flex';
+      } else {
+        alert('Invalid details. Please try again.');
+        generateCaptcha();
+      }
+    }
+
+    // Generate captcha on page load
+    window.onload = generateCaptcha;
+  </script>
+
+</body>
+</html>
